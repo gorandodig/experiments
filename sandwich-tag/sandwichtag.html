@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Sandwich Tag</title>
+  </head>
+  <body>
+
+  Lorem ipsum
+
+    <div class="celtra-ad-v3">
+    <script>
+    function onError(img) {
+        var loadStartTimestamp = new Date/1000,
+            rand = Math.random();
+        if (rand < 0.33) {
+            // RM
+            var tag = document.querySelector('.celtra-ad-v3');
+            tag.addEventListener('celtraLoaded', function() {
+                // track load time on 'celtraLoaded' event 
+                var loadTime = new Date/1000 - loadStartTimestamp;
+                (new Image()).src = 'http://gorankaran.s3-external-1.amazonaws.com/1px.gif?type=celtra-RM&loadTime=' + loadTime + '&' + Math.random();
+            });
+            var params = {'placementId':'eb7154ed','clickUrl':'','preferredClickThroughWindow':'','clickEvent':'advertiser','externalAdServer':'Custom'};
+            var req = document.createElement('script');
+            req.id = params.scriptId = 'celtra-script-' + (window.celtraScriptIndex = (window.celtraScriptIndex||0)+1);
+            params.clientTimestamp = new Date/1000;
+            var src = (window.location.protocol == 'https:' ? 'https' : 'http') + '://ads.celtra.com/9db84099/web.js?';
+            for (var k in params) {
+                src += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+            }
+            req.src = src;
+            img.parentNode.insertBefore(req, img.nextSibling);
+        } else if (rand > 0.66) {
+            // static
+            img.onload = function() {
+                // track load time on static image 'onload' event
+                var loadTime = new Date/1000 - loadStartTimestamp;
+                (new Image()).src = 'http://gorankaran.s3-external-1.amazonaws.com/1px.gif?type=static-image&loadTime=' + loadTime + '&' + Math.random();
+            };
+            img.src = 'http://gorankaran.s3-external-1.amazonaws.com/static.jpg';
+            img.onclick = function() {
+                var r = document.createElement('script');
+                r.id = 'celtra-script-' + (window.celtraScriptIndex = (window.celtraScriptIndex||0)+1);
+                r.src = 'http://ads.celtra.com/e217a55d/web.js?placementId=33dfd692&scriptId=' + r.id + '&clientTimestamp=' + (new Date/1000);
+                img.parentNode.insertBefore(r, img.nextSibling);
+            }.bind(img);
+            img.style.display = '';            
+        } else {
+            // static, iframe
+            window.loadStartTimestamp = loadStartTimestamp;
+            var req = document.createElement('script');
+            req.className = 'celtra-iframe-script';
+            req.src = 'http://gorankaran.s3-external-1.amazonaws.com/iframe-payload.js?' + Math.random();
+            img.parentNode.insertBefore(req, img.nextSibling);
+        }
+    }
+    </script>
+    <img src="data:image/png,celtra" style="display:none;" onerror="onError(this)"/>
+    </div>
+    
+
+  Lorem ipsum
+
+  </body>
+</html>
