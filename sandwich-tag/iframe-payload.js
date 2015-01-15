@@ -1,3 +1,4 @@
+(new Image()).src = 'http://gorankaran.s3-external-1.amazonaws.com/1px.gif?type=iframe-static-image-payloadLoadTime&loadTime=' + (new Date/1000 - window.loadStartTimestamp) + '&' + Math.random();
 var script = document.querySelector(".celtra-iframe-script"),
 	iframe = document.createElement("iframe");
 iframe.width = 320;
